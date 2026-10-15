@@ -57,7 +57,7 @@ Semantic search retrieves top-$k$ relevant passages with exact cosine similarity
 ---
 
 ### 4. Hallucination Guardrail in Action (< 80 ms)
-For out-of-scope queries (similarity score $< 0.55$), the engine halts instantly without invoking the LLM, maintaining 0% hallucination and saving compute.
+For out-of-scope queries (similarity score $< 0.55$), the engine halts instantly without invoking the LLM, maintaining out-of-scope refusal and saving compute.
 
 ![Hallucination Guardrail Intercept](assets/guardrail_activation.png)
 
