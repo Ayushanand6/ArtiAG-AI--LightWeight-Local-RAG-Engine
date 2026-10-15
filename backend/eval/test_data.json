@@ -1,0 +1,164 @@
+{
+  "documents": [
+    {
+      "id": "leave",
+      "text": "Employees are entitled to 20 days of paid annual vacation leave and 10 days of paid sick leave annually. Unused vacation days carry forward up to a maximum of 5 days into the following year."
+    },
+    {
+      "id": "wfh",
+      "text": "The company work from home policy allows team members to work remotely up to two days per week with manager approval. Core collaboration hours are 10 AM to 4 PM."
+    },
+    {
+      "id": "notice",
+      "text": "Standard notice period during voluntary resignation is 30 calendar days for regular software engineers. During probation, the notice period is 15 calendar days."
+    },
+    {
+      "id": "travel",
+      "text": "Business travel expenses for domestic flights and hotel bookings up to 150 dollars per night will be reimbursed by corporate finance upon submission of original receipts within 14 days."
+    },
+    {
+      "id": "security",
+      "text": "Employees must change their corporate account passwords every 90 days and enable multi-factor authentication on all devices. Sharing credentials is a severe violation."
+    },
+    {
+      "id": "bonus",
+      "text": "Annual performance bonuses are distributed in March and evaluated based on individual key performance indicators and company overall financial targets."
+    },
+    {
+      "id": "health",
+      "text": "Comprehensive health insurance covers employees and their dependents up to five hundred thousand rupees per year, including cashless hospitalization at network hospitals."
+    },
+    {
+      "id": "equipment",
+      "text": "Every new engineer receives an Apple MacBook Pro M3 with 32GB RAM and an external 4K monitor for development work."
+    },
+    {
+      "id": "probation",
+      "text": "The standard probation period for new hires is three months, after which a formal confirmation performance review is conducted by the department head."
+    },
+    {
+      "id": "resignation",
+      "text": "Upon resignation, all company property including laptop, security badge, and building access tokens must be surrendered to IT operations on the last working day."
+    },
+    {
+      "id": "overtime",
+      "text": "Overtime compensation is paid at 1.5 times the standard hourly rate for approved project hours worked beyond 40 hours in a single calendar week."
+    },
+    {
+      "id": "conduct",
+      "text": "The code of conduct strictly prohibits harassment, discrimination, and unauthorized disclosure of confidential client intellectual property."
+    }
+  ],
+  "questions": [
+    {
+      "question": "How many days of paid vacation leave do employees get?",
+      "expected_doc_id": "leave",
+      "expected_keyword": "20"
+    },
+    {
+      "question": "What is the maximum number of unused vacation days that carry forward?",
+      "expected_doc_id": "leave",
+      "expected_keyword": "5"
+    },
+    {
+      "question": "How many days per week are employees allowed to work remotely?",
+      "expected_doc_id": "wfh",
+      "expected_keyword": "two"
+    },
+    {
+      "question": "What are the core collaboration hours for remote work?",
+      "expected_doc_id": "wfh",
+      "expected_keyword": "10"
+    },
+    {
+      "question": "What is the standard notice period for regular software engineers?",
+      "expected_doc_id": "notice",
+      "expected_keyword": "30"
+    },
+    {
+      "question": "What is the notice period during probation?",
+      "expected_doc_id": "notice",
+      "expected_keyword": "15"
+    },
+    {
+      "question": "What is the nightly hotel booking reimbursement limit for travel?",
+      "expected_doc_id": "travel",
+      "expected_keyword": "150"
+    },
+    {
+      "question": "How often must corporate account passwords be changed?",
+      "expected_doc_id": "security",
+      "expected_keyword": "90"
+    },
+    {
+      "question": "What authentication must be enabled on all employee devices?",
+      "expected_doc_id": "security",
+      "expected_keyword": "multi-factor"
+    },
+    {
+      "question": "In which month are annual performance bonuses distributed?",
+      "expected_doc_id": "bonus",
+      "expected_keyword": "March"
+    },
+    {
+      "question": "What is the maximum coverage amount for health insurance per year?",
+      "expected_doc_id": "health",
+      "expected_keyword": "thousand"
+    },
+    {
+      "question": "What laptop model and RAM specification is provided to new engineers?",
+      "expected_doc_id": "equipment",
+      "expected_keyword": "MacBook"
+    },
+    {
+      "question": "How long is the standard probation period for new hires?",
+      "expected_doc_id": "probation",
+      "expected_keyword": "three"
+    },
+    {
+      "question": "What items must be surrendered to IT operations upon resignation?",
+      "expected_doc_id": "resignation",
+      "expected_keyword": "laptop"
+    },
+    {
+      "question": "What is the overtime compensation rate for hours worked beyond 40 hours?",
+      "expected_doc_id": "overtime",
+      "expected_keyword": "1.5"
+    },
+    {
+      "question": "What does the code of conduct prohibit regarding client intellectual property?",
+      "expected_doc_id": "conduct",
+      "expected_keyword": "confidential"
+    },
+    {
+      "question": "How many days of paid sick leave are provided annually?",
+      "expected_doc_id": "leave",
+      "expected_keyword": "10"
+    },
+    {
+      "question": "Within how many days must travel receipts be submitted?",
+      "expected_doc_id": "travel",
+      "expected_keyword": "14"
+    },
+    {
+      "question": "Who won the ICC Cricket World Cup in 2023?",
+      "expected_doc_id": null,
+      "expected_keyword": "could not find"
+    },
+    {
+      "question": "What is the capital city of France?",
+      "expected_doc_id": null,
+      "expected_keyword": "could not find"
+    },
+    {
+      "question": "What is the speed of light in vacuum?",
+      "expected_doc_id": null,
+      "expected_keyword": "could not find"
+    },
+    {
+      "question": "Who is the CEO of Tesla and SpaceX?",
+      "expected_doc_id": null,
+      "expected_keyword": "could not find"
+    }
+  ]
+}

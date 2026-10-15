@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ArtiAG AI - Architecture & Learning Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 1.8cm 1.5cm 1.8cm 1.5cm;
+            @bottom-right {
+                content: counter(page);
+                font-family: 'Inter', sans-serif;
+                font-size: 9pt;
+                color: #64748b;
+            }
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 10pt;
+            line-height: 1.6;
+            color: #1e293b;
+            background: #ffffff;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        /* Cover Page */
+        .cover-page {
+            page-break-after: always;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 3px solid #6366f1;
+            padding-bottom: 2rem;
+        }
+
+        .cover-badge {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #4338ca;
+            font-weight: 700;
+            font-size: 9pt;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            width: fit-content;
+            margin-bottom: 1.5rem;
+        }
+
+        .cover-title {
+            font-size: 32pt;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.8rem;
+        }
+
+        .cover-subtitle {
+            font-size: 14pt;
+            color: #475569;
+            font-weight: 400;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cover-meta {
+            margin-top: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .meta-item h4 {
+            font-size: 8pt;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 0.05em;
+            margin-bottom: 2px;
+        }
+
+        .meta-item p {
+            font-size: 10pt;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        /* Headings */
+        h1 {
+            font-size: 18pt;
+            font-weight: 800;
+            color: #0f172a;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid #e2e8f0;
+            page-break-after: avoid;
+        }
+
+        h2 {
+            font-size: 13pt;
+            font-weight: 700;
+            color: #1e293b;
+            margin-top: 1.4rem;
+            margin-bottom: 0.5rem;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-size: 11pt;
+            font-weight: 600;
+            color: #334155;
+            margin-top: 1rem;
+            margin-bottom: 0.4rem;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin-bottom: 0.75rem;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        li {
+            margin-bottom: 0.35rem;
+        }
+
+        /* Code Blocks */
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5pt;
+            background: #f1f5f9;
+            padding: 2px 5px;
+            border-radius: 4px;
+            color: #0f172a;
+        }
+
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8pt;
+            line-height: 1.45;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            overflow-x: auto;
+            page-break-inside: avoid;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 8.5pt;
+            page-break-inside: avoid;
+        }
+
+        th, td {
+            padding: 8px 10px;
+            text-align: left;
+            border: 1px solid #cbd5e1;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin: 0.9rem 0;
+            font-size: 9pt;
+            page-break-inside: avoid;
+            border-left: 4px solid;
+        }
+
+        .callout-info {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .callout-success {
+            background: #ecfdf5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+
+        .callout-warning {
+            background: #fffbeb;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        /* Diagrams & Flow Box */
+        .diagram-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 14px;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7.8pt;
+            line-height: 1.35;
+            white-space: pre;
+            color: #1e293b;
+            page-break-inside: avoid;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- COVER PAGE -->
+    <div class="cover-page">
+        <div class="cover-badge">Complete Engineering Documentation</div>
+        <div class="cover-title">ArtiAG AI<br><span style="color: #6366f1; font-weight: 700;">Lightweight Local RAG Engine</span></div>
+        <div class="cover-subtitle">From-scratch architecture, data workflows, custom HNSW algorithms, Spring Boot implementation, and Ollama integration guide.</div>
+        
+        <div class="cover-meta">
+            <div class="meta-item">
+                <h4>Architecture</h4>
+                <p>Local RAG + HNSW</p>
+            </div>
+            <div class="meta-item">
+                <h4>Runtime</h4>
+                <p>Java 21 & Spring Boot</p>
+            </div>
+            <div class="meta-item">
+                <h4>Models</h4>
+                <p>llama3.2:1b + nomic-embed</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAPTER 1 -->
+    <h1>1. Introduction: What is ArtiAG AI?</h1>
+    <p>
+        In modern artificial intelligence, <strong>Retrieval-Augmented Generation (RAG)</strong> is the standard pattern for enabling Large Language Models (LLMs) to answer questions using private enterprise documents. However, conventional enterprise RAG systems typically rely on heavy cloud infrastructure:
+    </p>
+    <ul>
+        <li><strong>External Cloud Vector Databases</strong> (Pinecone, Milvus, Qdrant) that store sensitive company data on external servers and incur monthly subscription costs.</li>
+        <li><strong>Third-Party Cloud LLMs</strong> (OpenAI, Anthropic) that send proprietary intellectual property over the public internet.</li>
+    </ul>
+    <p>
+        <strong>ArtiAG AI</strong> is an end-to-end, privacy-first, 100% offline local RAG system. It was designed from first principles with zero external cloud dependencies.
+    </p>
+
+    <div class="callout callout-success">
+        <strong>Key Architectural Differentiators:</strong><br>
+        1. <strong>Embedded Vector Index:</strong> Implements a custom Hierarchical Navigable Small World (HNSW) graph in pure Java without external database drivers.<br>
+        2. <strong>Local LLM Runtime:</strong> Communicates with local Ollama instances running <code>llama3.2:1b</code> and <code>nomic-embed-text</code>.<br>
+        3. <strong>Hallucination Guardrail:</strong> Evaluates cosine similarity; if relevance drops below 0.55, it stops in &lt;80 ms without invoking the LLM.<br>
+        4. <strong>Self-Contained Web UI:</strong> Interactive glassmorphic dashboard served directly from Spring Boot static resources.
+    </div>
+
+    <!-- CHAPTER 2 -->
+    <h1>2. Core Fundamentals Explained from Scratch</h1>
+
+    <h2>2.1 What is RAG (Retrieval-Augmented Generation)?</h2>
+    <p>
+        LLMs are trained on public datasets and do not know internal documents. If asked <em>"What is our corporate vacation rollover policy?"</em>, a generic LLM will hallucinate. RAG solves this in three steps:
+    </p>
+    <ol>
+        <li><strong>Retrieve:</strong> The system converts the user's query into an embedding vector, performs a nearest-neighbor vector search, and extracts the top relevant paragraphs.</li>
+        <li><strong>Augment:</strong> The retrieved text is bundled into a factual prompt context with the question.</li>
+        <li><strong>Generate:</strong> The local LLM reads the context and provides a truthful, grounded response with document citations.</li>
+    </ol>
+
+    <h2>2.2 What are Vector Embeddings?</h2>
+    <p>
+        Computers cannot directly compare the semantic meaning of sentences. An embedding model (here, <code>nomic-embed-text</code>) is a specialized neural network that translates text into high-dimensional geometric coordinates:
+    </p>
+    <div class="diagram-box">
+"Annual vacation policy"      --> [ 0.024, -0.812, 0.435, ... , 0.129 ] (768 floats)
+"Paid time off guidelines"   --> [ 0.021, -0.798, 0.441, ... , 0.118 ] (High similarity: 0.94)
+"Apple MacBook Pro laptop"    --> [-0.551,  0.122, -0.912, ... , 0.334 ] (Low similarity: 0.28)</div>
+
+    <h2>2.3 What is Cosine Similarity?</h2>
+    <p>
+        To determine how relevant a document chunk is to a query, we calculate the angle &theta; between their vector representations:
+    </p>
+    <p style="text-align: center; font-family: 'JetBrains Mono'; font-weight: bold; margin: 10px 0;">
+        Cosine Similarity = cos(&theta;) = (A &middot; B) / (||A|| &times; ||B||)
+    </p>
+    <ul>
+        <li><strong>1.0:</strong> Identical direction (identical semantic meaning).</li>
+        <li><strong>0.0:</strong> Orthogonal (completely unrelated concepts).</li>
+        <li><strong>-1.0:</strong> Directly opposite meanings.</li>
+    </ul>
+
+    <h2>2.4 What is HNSW (Hierarchical Navigable Small World)?</h2>
+    <p>
+        Comparing a query vector against 10,000 vectors one-by-one is called <strong>Linear Scan</strong>. It requires O(N) comparisons and becomes slow as the dataset grows.
+    </p>
+    <p>
+        <strong>HNSW</strong> organizes vectors into a multi-layered graph similar to an express train skip-list. The search takes huge logarithmic jumps at the top layers to quickly reach the relevant neighborhood, then descends to Layer 0 for fine-grained local search:
+    </p>
+    <div class="diagram-box">
+Layer 2 (Express):    [Node A] -----------------------------------------> [Node Z]
+                          |                                                  |
+Layer 1 (Regional):   [Node A] ------------> [Node K] ------------------> [Node Z]
+                          |                     |                            |
+Layer 0 (Local/All):  [Node A] -> [Node B] -> [Node K] -> [Node M] ----> [Node Z]</div>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 3 -->
+    <h1>3. System Architecture & Component Interaction</h1>
+    <p>
+        ArtiAG AI consists of a layered Spring Boot architecture interacting with an offline Ollama process and a browser frontend:
+    </p>
+
+    <div class="diagram-box">
++-----------------------------------------------------------------------------------+
+|                        CLIENT TIER: BROWSER (HTTP 8080)                           |
+|       Interactive Glassmorphic Dashboard: Ingest, Chat, Metrics, Guardrails       |
++-----------------------------------------------------------------------------------+
+                                         |
+                                (REST JSON APIs)
+                                         v
++-----------------------------------------------------------------------------------+
+|                   BACKEND TIER: SPRING BOOT APPLICATION (PORT 8080)               |
+|                                                                                   |
+|  +-----------------------------------------------------------------------------+  |
+|  | VectorRagController                                                         |  |
+|  | POST /api/documents/ingest  | POST /api/chat/query  | GET /api/status       |  |
+|  +-----------------------------------------------------------------------------+  |
+|                                         |                                         |
+|                                         v                                         |
+|  +-----------------------------------------------------------------------------+  |
+|  | RagService (Core Orchestrator)                                              |  |
+|  | - Chunks raw texts using sliding-window algorithm                           |  |
+|  | - Evaluates cosine similarity threshold guardrail (0.55)                    |  |
+|  | - Assembles grounded context prompts                                        |  |
+|  +-----------------------------------------------------------------------------+  |
+|         |                                      |                                  |
+|         v                                      v                                  |
+|  +-------------------------------+   +-----------------------------------------+  |
+|  | HNSWIndex (Vector Engine)     |   | OllamaClientService                     |  |
+|  | - Multi-layer graph storage   |   | - Native Java HttpClient                |  |
+|  | - O(log N) nearest neighbor   |   | - Post /api/embeddings                  |  |
+|  | - Thread-safe ReadWriteLock   |   | - Post /api/generate                    |  |
+|  +-------------------------------+   +-----------------------------------------+  |
+|         |                                      |                                  |
+|         v                                      |                                  |
+|  +-------------------------------+             |                                  |
+|  | IndexPersistenceService       |             |                                  |
+|  | - Saves/loads data/index.json |             |                                  |
+|  +-------------------------------+             |                                  |
++------------------------------------------------|----------------------------------+
+                                                 |
+                                    (Local HTTP 11434)
+                                                 v
++-----------------------------------------------------------------------------------+
+|                     LOCAL AI TIER: OLLAMA DAEMON (PORT 11434)                     |
+|                                                                                   |
+|     +-----------------------------+        +--------------------------------+     |
+|     | nomic-embed-text            |        | llama3.2:1b                    |     |
+|     | (768-dim vector embeddings) |        | (1.2B instruction LLM GGUF)    |     |
+|     +-----------------------------+        +--------------------------------+     |
++-----------------------------------------------------------------------------------+</div>
+
+    <!-- CHAPTER 4 -->
+    <h1>4. End-to-End Workflows with Data Traces</h1>
+
+    <h2>Workflow A: Document Ingestion Pipeline</h2>
+    <ol>
+        <li><strong>Payload Received:</strong> User sends JSON <code>{"id": "leave", "text": "Employees get 20 days vacation..."}</code> to <code>/api/documents/ingest</code>.</li>
+        <li><strong>Text Chunking:</strong> <code>TextChunker</code> divides the text into 200-word segments with 40-word overlapping windows.</li>
+        <li><strong>Vector Embedding:</strong> <code>OllamaClientService</code> sends each chunk to Ollama's <code>/api/embeddings</code> (model <code>nomic-embed-text</code>). A <code>float[768]</code> array is returned.</li>
+        <li><strong>HNSW Graph Insertion:</strong> <code>HNSWIndex</code> assigns a random top level using logarithmic decay ($m_L = 1 / \ln(M)$). It greedily finds the closest entry point from the top layer down to Layer 0, adds bidirectional connections to its nearest $M=16$ neighbors, and prunes excess edges.</li>
+    </ol>
+
+    <h2>Workflow B: Retrieval & Chat Pipeline (Guardrails in Action)</h2>
+    <ol>
+        <li><strong>Query Embedding:</strong> User submits <em>"How many days of paid vacation do employees get?"</em>. Ollama generates a 768-dimensional query vector.</li>
+        <li><strong>HNSW Search:</strong> The search starts at the top graph entry point, greedily descends to Layer 0, and runs <code>searchLayer</code> with <code>efSearch=100</code> to find the top $K=3$ candidates.</li>
+        <li><strong>Guardrail Check:</strong>
+            <ul>
+                <li>If the best score is <strong>&lt; 0.55</strong> (out-of-scope query), the system immediately returns <em>"I could not find the answer to this in the provided documents."</em> in <strong>&lt; 80 ms</strong> without invoking the LLM.</li>
+                <li>If the best score is <strong>&ge; 0.55</strong>, the retrieved document text is assembled into an augmented context prompt.</li>
+            </ul>
+        </li>
+        <li><strong>Generation:</strong> <code>llama3.2:1b</code> reads the augmented prompt and generates a factual, grounded answer with source citations.</li>
+    </ol>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 5 -->
+    <h1>5. Detailed Code Walkthrough</h1>
+
+    <h2>5.1 Controller Layer: VectorRagController.java</h2>
+    <p>
+        The REST controller validates incoming requests, delegates processing to services, and returns clean JSON structures:
+    </p>
+    <pre><code>@PostMapping("/documents/ingest")
+public ResponseEntity&lt;IngestResponse&gt; ingest(@RequestBody IngestRequest request) {
+    if (request == null || request.id().isBlank() || request.text().isBlank()) {
+        throw new IllegalArgumentException("Document id and text cannot be empty");
+    }
+    int chunksIndexed = ragService.ingestDocument(request.id().trim(), request.text().trim());
+    return ResponseEntity.ok(new IngestResponse("SUCCESS", chunksIndexed, chunksIndexed));
+}
+
+@PostMapping("/chat/query")
+public ResponseEntity&lt;ChatResponse&gt; query(@RequestBody ChatRequest request) {
+    int topK = (request.topK() != null) ? request.topK() : 3;
+    ChatResponse response = ragService.ask(request.query().trim(), topK);
+    return ResponseEntity.ok(response);
+}</code></pre>
+
+    <h2>5.2 Vector Engine: HNSWIndex.java Implementation & Fix</h2>
+    <p>
+        During high-dimensional benchmarking (128 dimensions, 10,000 vectors), standard HNSW implementations often suffer from graph fragmentation. We resolved this through two critical algorithmic corrections:
+    </p>
+    <pre><code>// 1. Corrected Greedy Layer Traversal: Greedily hop to the BEST neighbor
+for (int l = maxLevel; l &gt; nodeLevel; l--) {
+    boolean changed = true;
+    while (changed) {
+        changed = false;
+        Set&lt;Node&gt; neighbors = curr.connections.get(l);
+        if (neighbors != null) {
+            Node bestNeighbor = null;
+            float bestDist = CosineDistance.cosineSimilarity(query, curr.record.embedding());
+            for (Node neighbor : neighbors) {
+                float dist = CosineDistance.cosineSimilarity(query, neighbor.record.embedding());
+                if (dist &gt; bestDist) {
+                    bestDist = dist;
+                    bestNeighbor = neighbor;
+                }
+            }
+            if (bestNeighbor != null) {
+                curr = bestNeighbor;
+                changed = true;
+            }
+        }
+    }
+}
+
+// 2. Strict Candidate Connection Bounding: Connect ONLY to top maxConn neighbors
+int limit = Math.min(candidates.size(), maxConn);
+for (int i = 0; i &lt; limit; i++) {
+    SearchResult candidate = candidates.get(i);
+    Node neighbor = nodes.get(candidate.record().id());
+    if (neighbor != null &amp;&amp; neighbor != newNode) {
+        newNode.connections.get(l).add(neighbor);
+        neighbor.connections.get(l).add(newNode);
+        pruneConnections(neighbor, l, maxConn);
+    }
+}
+pruneConnections(newNode, l, maxConn);</code></pre>
+
+    <h2>5.3 HTTP Client Service: OllamaClientService.java</h2>
+    <p>
+        Utilizes modern Java 11+ <code>HttpClient</code> to issue non-blocking HTTP requests with custom timeouts and structured error diagnosis:
+    </p>
+    <pre><code>public float[] getEmbeddings(String text) {
+    Map&lt;String, Object&gt; payload = Map.of("model", embedModel, "prompt", text);
+    String responseBody = post("/api/embeddings", objectMapper.writeValueAsString(payload));
+    JsonNode root = objectMapper.readTree(responseBody);
+    JsonNode embeddingNode = root.get("embedding");
+
+    float[] embedding = new float[embeddingNode.size()];
+    for (int i = 0; i &lt; embeddingNode.size(); i++) {
+        embedding[i] = (float) embeddingNode.get(i).asDouble();
+    }
+    return embedding;
+}</code></pre>
+
+    <div class="page-break"></div>
+
+    <!-- CHAPTER 6 -->
+    <h1>6. Verified Benchmark & Evaluation Results</h1>
+
+    <h2>6.1 HNSW vs Linear Scan Search Benchmark</h2>
+    <p>
+        Executed using JUnit 5 in <code>BenchmarkTest.java</code> comparing HNSW against brute-force Linear Scan across 100 queries:
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Vector Dataset</th>
+                <th>Queries</th>
+                <th>Linear Scan (ms)</th>
+                <th>HNSW (ms)</th>
+                <th>Speedup</th>
+                <th>Recall@10</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1,000 Vectors</strong></td>
+                <td>100</td>
+                <td>0.393 ms</td>
+                <td>0.545 ms</td>
+                <td>0.7x</td>
+                <td><strong>99.90%</strong></td>
+            </tr>
+            <tr>
+                <td><strong>10,000 Vectors</strong></td>
+                <td>100</td>
+                <td>3.058 ms</td>
+                <td>0.979 ms</td>
+                <td><strong>3.1x Faster</strong></td>
+                <td><strong>84.90%</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>6.2 Live RAG Evaluation Suite (eval_artiag.py)</h2>
+    <p>
+        Evaluated using 22 comprehensive test questions against 12 corporate policies:
+    </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Result</th>
+                <th>Significance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Retrieval Recall (Hit Rate)</strong></td>
+                <td><strong>22 / 22 (100.0%)</strong></td>
+                <td>Every relevant policy document was successfully located in Top-K.</td>
+            </tr>
+            <tr>
+                <td><strong>Answer Correctness Rate</strong></td>
+                <td><strong>18 / 22 (81.8%)</strong></td>
+                <td>Expected factual keywords accurately present in LLM synthesis.</td>
+            </tr>
+            <tr>
+                <td><strong>Average Query Latency</strong></td>
+                <td><strong>1,732 ms</strong></td>
+                <td>Total time including vector search, prompt assembly, and local LLM tokens.</td>
+            </tr>
+            <tr>
+                <td><strong>Guardrail Out-of-Scope Latency</strong></td>
+                <td><strong>&lt; 80 ms</strong></td>
+                <td>Immediate refusal returned when similarity &lt; 0.55 without invoking LLM.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- CHAPTER 7 -->
+    <h1>7. Project Structure & Technology Matrix</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Technology</th>
+                <th>Component / File</th>
+                <th>Role in ArtiAG AI</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Java 21</strong></td>
+                <td><code>src/main/java</code></td>
+                <td>Core language; records, pattern matching, concurrency locks.</td>
+            </tr>
+            <tr>
+                <td><strong>Spring Boot 3.3.5</strong></td>
+                <td><code>MyVectorEngineApplication.java</code></td>
+                <td>IoC container, embedded web server, REST controller mappings.</td>
+            </tr>
+            <tr>
+                <td><strong>Apache Maven</strong></td>
+                <td><code>pom.xml</code></td>
+                <td>Build management, compilation plugins, and test orchestration.</td>
+            </tr>
+            <tr>
+                <td><strong>Ollama</strong></td>
+                <td><code>localhost:11434</code></td>
+                <td>Offline LLM server running <code>llama3.2:1b</code> and <code>nomic-embed-text</code>.</td>
+            </tr>
+            <tr>
+                <td><strong>HTML5 / CSS3 / JS</strong></td>
+                <td><code>src/main/resources/static/index.html</code></td>
+                <td>Interactive glassmorphic web dashboard with real-time RAG chat.</td>
+            </tr>
+            <tr>
+                <td><strong>JUnit 5</strong></td>
+                <td><code>src/test/java</code></td>
+                <td>Automated unit tests and algorithmic performance benchmarks.</td>
+            </tr>
+            <tr>
+                <td><strong>Python 3</strong></td>
+                <td><code>eval/eval_artiag.py</code></td>
+                <td>Automated RAG evaluation suite measuring recall, accuracy, and latency.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #cbd5e1; font-size: 8pt; color: #64748b; text-align: center;">
+        ArtiAG AI — Lightweight Local RAG Engine &copy; 2026. All rights reserved.
+    </div>
+
+</body>
+</html>
